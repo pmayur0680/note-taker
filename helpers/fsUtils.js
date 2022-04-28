@@ -20,4 +20,10 @@ const readAndAppend = (newContent, file) => {
         }
     })
 }
-module.exports = { readFromFile, readAndAppend };
+// Function to write data to JSON file
+const writeToFile = (newContent, file) => {
+    fs.writeFile(file, JSON.stringify(newContent), (err) => {
+        err ? console.error(err) : console.info(`Data has been written to ${file}`) 
+    })
+}
+module.exports = { readFromFile, readAndAppend, writeToFile };

@@ -9,13 +9,13 @@ app.use(express.json());
 app.use(express.urlencoded ( { extended: true }));
 app.use('/api', api); // routes through index.js
 app.use(express.static('public'));
-// Route for homepage
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/index.html'));
-})
 // Route for notes page
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/notes.html'));
+})
+// Route for homepage
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/index.html'));
 })
 // listen port
 app.listen(PORT, () => {

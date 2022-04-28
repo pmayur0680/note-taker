@@ -1,7 +1,11 @@
 const route = require('express').Router();
+// Universally Unique Identifier (UUID) using uuid npm
+// Create an RFC version 4 (random) UUID
+const { v4: uuidv4 } = require('uuid');
 const {
     readFromFile,
-    readAndAppend
+    readAndAppend,
+    writeToFile
 } = require('../helpers/fsUtils');
 
 // Route for retrieving all notes
@@ -20,9 +24,11 @@ route.post('/', (req, res) => {
     if(req.body) {
         const newNote = {
             title,
-            text
+            text,
+            id: uuidv4(),
         };
-        readAndAppend(newNote, './db/db.json');
+        console.log(newNote);
+         readAndAppend(newNote, './db/db.json');
         res.json('Note has been added successfully');
     } else {
         res.error('Error in adding note');
@@ -30,4 +36,18 @@ route.post('/', (req, res) => {
 
 })
 
+// Route to delete note
+route.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    readFromFile('./db/db.json')
+    .then((data) => {
+       const arrayResult = JSON.parse(data);
+       const updatedArray = arrayResult.filter((note) => note.id !== id);
+       // Save new array to db       
+       writeToFile(updatedArray, './db/db.json');
+       // Respond to the DELETE request
+       res.json(`Selected note has been deleted.`);
+    })
+    
+})
 module.exports = route;
