@@ -20,8 +20,7 @@ This application uses express and uuid to generate Universally Unique Identifier
 ## Usage
 ### Project Links
 Code Repo: https://github.com/pmayur0680/note-taker<br>
-Live Site: 
-The application is deployed app on Heroku.
+Live Site: https://note-taker-0422.herokuapp.com/<br>
 ![Alt text](https://user-images.githubusercontent.com/101486770/165773232-f4c2b694-44f7-442c-a91a-ef009200f5a0.gif?raw=true "Note Taker")
 ## License
 Distributed under the MIT License. See LICENSE.txt for more information.
