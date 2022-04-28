@@ -5,5 +5,19 @@ const util = require('util');
 // Use promisify to convert fs.readFile to 
 // promise based method
 const readFromFile = util.promisify(fs.readFile);
-
-module.exports = { readFromFile };
+// Function to read data from a given file and append new record
+const readAndAppend = (newContent, file) => {
+    fs.readFile(file, 'utf-8', (err, data) => {
+        if(!err) {
+            const fileData = JSON.parse(data);
+            fileData.push(newContent);
+            fs.writeFile(file, JSON.stringify(fileData), (err) => {
+                err ? console.error(err) : console.info(`New record has been added to ${file}`) 
+            })
+        }
+        else {
+            console.error(err);
+        }
+    })
+}
+module.exports = { readFromFile, readAndAppend };
